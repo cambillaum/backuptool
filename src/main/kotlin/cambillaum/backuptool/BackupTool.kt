@@ -31,7 +31,7 @@ fun backup(source: String, splitSize: Long, target: String): Unit {
 }
 
 fun restore(source: String, target: String): Unit {
-    val files = File(source).listFiles().toList().map { it.absolutePath }
+    val files = File(source).listFiles().toList().map({ it.absolutePath }).sorted()
     val catProcess = ProcessBuilder(listOf("cat").plus(files)).start()
     val gpgProcess = ProcessBuilder(listOf("gpg")).start()
     val tarProcess = ProcessBuilder(listOf("tar", "-xzf", "-", "-C", target)).redirectOutput(ProcessBuilder.Redirect.INHERIT).redirectError(ProcessBuilder.Redirect.INHERIT).start()
